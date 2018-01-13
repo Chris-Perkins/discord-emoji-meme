@@ -1,8 +1,10 @@
 import configparser
 import discord
 from random import randint
+from math import ceil
 
 command_prefix = ".em "
+max_message_length = 2000
 
 ok    = "•"
 ng    = "‣"
@@ -130,22 +132,39 @@ char_replacement_dictionary = {
     kms  : [":grimacing: :gun:", ":sunglasses: :gun:"]
 }
 
-def parse(input_string):
+def string_to_emoji_message_list(input_string):
+    '''
+    :param input_string: The string that will parse emojis
+    :return: A list of emoji strings whose length does not exceed max message limit
+    '''
+
     input_string = input_string.lower()
+    return_messages = list()
 
     for special_case in special_case_replace_dictionary:
         input_string = input_string.replace(special_case, special_case_replace_dictionary[special_case])
 
-    return_string = ""
+    current_string = ""
     for c in input_string:
+        append_string = ""
+
         if c in char_replacement_dictionary:
             choices = char_replacement_dictionary[c]
             # add an extra space as Discord collapses side-by-side chars like "de" to a flag.
-            return_string += choices[randint(0, len(choices) - 1)] + " "
+            append_string = choices[randint(0, len(choices) - 1)] + " "
         else:
-            return_string += (" " * 4) if c == " " else c
+            append_string = (" " * 4) if c == " " else c
 
-    return return_string
+        if len(append_string) + len(current_string) <= max_message_length:
+            current_string += append_string
+        else:
+            return_messages.append(current_string)
+            current_string = append_string
+
+    # Make sure to attach the last message since it didn't go over message limit
+    return_messages.append(current_string)
+
+    return return_messages
 
 
 def main():
@@ -159,8 +178,13 @@ def main():
 
     @client.event
     async def on_message(message):
-        if(message.author.id == config["user"]["id"] and message.content.startswith(command_prefix)):
-            await client.edit_message(message, parse(message.content[len(command_prefix):]))
+        if message.author.id == config["user"]["id"] and message.content.startswith(command_prefix):
+            await client.delete_message(message)
+
+
+            emoji_messages = string_to_emoji_message_list(message.content[len(command_prefix):])
+            for emoji_message in emoji_messages:
+                await client.send_message(message.channel, emoji_message)
 
     print("Logging in, please wait...")
     client.run(config["user"]["token"], bot=False)
