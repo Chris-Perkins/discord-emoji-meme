@@ -154,25 +154,50 @@ def string_to_emoji_message_list(input_string):
     for special_case in special_case_replace_dictionary:
         input_string = input_string.replace(special_case, special_case_replace_dictionary[special_case])
 
+    # the current word we're parsing (not interrupted by "\n" or " ")
+    current_word = ""
+    # the current string we'll append to return message
     current_string = ""
+
     for c in input_string:
         append_string = ""
 
-        if c in char_replacement_dictionary:
+        if c == " " or c == "\n":
+            spacing_string = (" " * 4) if c == " " else "\n"
+
+            # if the resulting string would be greater than the limit,
+            # break so that we don't cause an exception
+            if len(current_word) + len(current_string) + len(spacing_string) > max_message_length:
+                return_messages.append(current_string)
+                current_string = ""
+
+            # add to the resulting string and reset the word
+            current_string += current_word + spacing_string
+            current_word = ""
+
+        elif c in char_replacement_dictionary:
             choices = char_replacement_dictionary[c]
             # add an extra space as Discord collapses side-by-side chars like "de" to a flag.
             append_string = choices[randint(0, len(choices) - 1)] + " "
-        else:
-            append_string = (" " * 4) if c == " " else c
 
-        if len(append_string) + len(current_string) <= max_message_length:
-            current_string += append_string
         else:
-            return_messages.append(current_string)
-            current_string = append_string
+            append_string = c
+
+        # checks if the word itself > the limit. If it is, chop the word up.
+        # if it's not, we can just add it to the current word
+        if len(append_string) + len(current_word) <= max_message_length:
+            current_word += append_string
+        else:
+            return_messages.append(current_word)
+            current_word = append_string
 
     # Make sure to attach the last message since it didn't go over message limit
-    return_messages.append(current_string)
+    # chop up from the word as necessary.
+    if len(current_word) + len(current_string) <= max_message_length:
+        return_messages.append(current_string + current_word)
+    else:
+        return_messages.append(current_string)
+        return_messages.append(current_word)
 
     return return_messages
 
@@ -190,7 +215,6 @@ def main():
     async def on_message(message):
         if message.author.id == config["user"]["id"] and message.content.startswith(command_prefix):
             await client.delete_message(message)
-
 
             emoji_messages = string_to_emoji_message_list(message.content[len(command_prefix):])
             for emoji_message in emoji_messages:
