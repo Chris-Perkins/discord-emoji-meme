@@ -160,7 +160,7 @@ def main():
     @client.event
     async def on_message(message):
         if(message.author.id == config["user"]["id"] and message.content.startswith(command_prefix)):
-            await client.edit_message(message, parse(message.content.lstrip(command_prefix)))
+            await client.edit_message(message, parse(message.content[len(command_prefix):]))
 
     print("Logging in, please wait...")
     client.run(config["user"]["token"], bot=False)
