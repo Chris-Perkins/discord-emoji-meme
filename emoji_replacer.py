@@ -3,7 +3,8 @@ import discord
 from random import randint
 from math import ceil
 
-command_prefix = ".em "
+emoji_command_prefix = ".em "
+clap_command_prefix  = ".clap "
 max_message_length = 2000
 
 ok    = "•"
@@ -143,6 +144,7 @@ char_replacement_dictionary = {
     '+': [":thumbsup:"]
 }
 
+# replaces replaceable characters with emojis
 def string_to_emoji_message_list(input_string):
     '''
     :param input_string: The string that will parse emojis
@@ -202,6 +204,26 @@ def string_to_emoji_message_list(input_string):
 
     return return_messages
 
+# replaces spaces with :clap: and doesn't go over the message char limit
+def message_to_clappified_message_list(input_string):
+    return_messages = list()
+
+    current_message = ""
+    for c in input_string:
+        append_string = ":clap:" if c == " " else c
+
+        if len(current_message) + len(append_string) > max_message_length:
+            return_messages.append(current_message)
+            current_message = ""
+
+        current_message += append_string
+
+    # attach the last string since it didn't go over the limit
+    return_messages.append(current_message)
+
+    return return_messages
+
+
 
 def main():
     config = configparser.ConfigParser()
@@ -210,16 +232,26 @@ def main():
 
     @client.event
     async def on_ready():
-        print("Ready to meme!\nEmojify your sentences by starting them with '{0}'".replace("{0}", command_prefix))
+        print("Ready to meme!\nEmojify your sentences by starting them with '%s' or clappify it using '%s'." %
+              (emoji_command_prefix, clap_command_prefix))
 
     @client.event
     async def on_message(message):
-        if message.author.id == config["user"]["id"] and message.content.startswith(command_prefix):
+        user_is_owner = message.author.id == config["user"]["id"]
+
+        if user_is_owner and message.content.startswith(emoji_command_prefix):
             await client.delete_message(message)
 
-            emoji_messages = string_to_emoji_message_list(message.content[len(command_prefix):])
+            emoji_messages = string_to_emoji_message_list(message.content[len(emoji_command_prefix):])
             for emoji_message in emoji_messages:
                 await client.send_message(message.channel, emoji_message)
+        elif user_is_owner and message.content.startswith(clap_command_prefix):
+            await client.delete_message(message)
+
+            clappified_messages = message_to_clappified_message_list(message.content[len(clap_command_prefix):])
+
+            for clappified_message in clappified_messages:
+                await client.send_message(message.channel, clappified_message)
 
     print("Logging in, please wait...")
     client.run(config["user"]["token"], bot=False)
