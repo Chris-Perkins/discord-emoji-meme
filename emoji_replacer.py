@@ -24,17 +24,18 @@ on    = "ơ"
 top   = "Ƭ"
 soon  = "ƨ"
 love  = "ǽ"
-daddy = "Ȝ"
 think = "ʨ"
 rod   = "ʤ"
 buns  = "Ƞ"
-kms   = "ʛ"
+face  = "ʛ"
+weary = "Ѻ"
+gun   = "Ջ"
 
 # replacements ordered by length
 # so longer phrases get replaced. Please format new entries appropriately.
 special_case_replace_dictionary = {
     "booty": buns,
-    "daddy": daddy,
+    "daddy": weary + "daddy" + weary,
     "hmmmm": think,
     "penis": rod,
     "think": think,
@@ -53,7 +54,7 @@ special_case_replace_dictionary = {
     "ass": buns,
     "end": end,
     "hmm": think,
-    "kms": kms,
+    "kms": face + gun,
     "luv": love,
     "new": new,
     "sos": sos,
@@ -72,20 +73,20 @@ special_case_replace_dictionary = {
 # please keep any new entries matched up with length of key
 # done purely for formatting reasons.
 char_replacement_dictionary = {
-    daddy: [":weary: :regional_indicator_d: :a: :regional_indicator_d: :regional_indicator_d:" +
-            ":regional_indicator_y: :weary:"],
     think: [":thinking:"],
+    weary: [":weary:"],
 
     back: [":back:"],
     buns: [":peach:"],
     cool: [":cool:"],
+    face: [":grimacing:", ":sunglasses:", ":weary:"],
     free: [":free:"],
     love: [":heart:", ":hearts:", ":sparkling_heart:", ":heartpulse:"],
     soon: [":soon:"],
 
     abc: [":abc:"],
     end: [":end:"],
-    kms: [":grimacing: :gun:", ":sunglasses: :gun:"],
+    gun: [":gun:"],
     new: [":new:"],
     rod: [":eggplant:"],
     sos: [":sos:"],
