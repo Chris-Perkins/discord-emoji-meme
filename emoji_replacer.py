@@ -1,11 +1,11 @@
 import configparser
 import discord
 from random import randint
-from math import ceil
 
 emoji_command_prefix = ".em "
 clap_command_prefix  = ".clap "
 max_message_length = 2000
+
 
 ok    = "•"
 ng    = "‣"
@@ -31,6 +31,7 @@ buns  = "Ƞ"
 face  = "ʛ"
 weary = "Ѻ"
 gun   = "Ջ"
+
 
 # replacements ordered by length
 # so longer phrases get replaced. Please format new entries appropriately.
@@ -70,6 +71,7 @@ special_case_replace_dictionary = {
     "tm": tm,
     "up": up
 }
+
 
 # please keep any new entries matched up with length of key
 # done purely for formatting reasons.
@@ -144,10 +146,11 @@ char_replacement_dictionary = {
     '+': [":thumbsup:"]
 }
 
+
 # replaces replaceable characters with emojis
 def string_to_emoji_message_list(input_string):
     '''
-    :param input_string: The string that will parse emojis
+    :param input_string: The string that we will be parsing for emoji replacements
     :return: A list of emoji strings whose length does not exceed max message limit
     '''
 
@@ -188,11 +191,12 @@ def string_to_emoji_message_list(input_string):
 
         # checks if the word itself > the limit. If it is, chop the word up.
         # if it's not, we can just add it to the current word
-        if len(append_string) + len(current_word) <= max_message_length:
-            current_word += append_string
-        else:
+        if len(append_string) + len(current_word) > max_message_length:
             return_messages.append(current_word)
-            current_word = append_string
+            current_word = ""
+
+        current_word += append_string
+
 
     # Make sure to attach the last message since it didn't go over message limit
     # chop up from the word as necessary.
@@ -204,8 +208,14 @@ def string_to_emoji_message_list(input_string):
 
     return return_messages
 
+
 # replaces spaces with :clap: and doesn't go over the message char limit
 def message_to_clappified_message_list(input_string):
+    '''
+    :param input_string: The string that will for
+    :return: a list of messages with all spaces in input_string replaced with :clap:
+    '''
+    
     return_messages = list()
 
     current_message = ""
@@ -222,7 +232,6 @@ def message_to_clappified_message_list(input_string):
     return_messages.append(current_message)
 
     return return_messages
-
 
 
 def main():
