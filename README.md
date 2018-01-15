@@ -1,6 +1,13 @@
-# discord-emoji-meme
+# Discord Meme-ifier Self-Bot
 
-Translates your text into a discord emoji sentence because this repository is stupid.
+A self-bot to:
+
+* translate sentences into emoji equivalents
+* clappify your messages
+* or react using emojis by typing plain English
+
+![](imgs/Example.png)
+
 
 ## Setup and Installation
 ### Requirements:
@@ -13,7 +20,7 @@ Translates your text into a discord emoji sentence because this repository is st
     
 ### Get your Discord user token
 1. Open Discord (web or desktop app)
-1. Press `ctrl` + `shift` + `I`
+1. Press `ctrl` + `shift` + `I` (`command` + `option` + `i` on MacOS)
 1. Click on `Application`
 1. Expand `Local Storage` and click on `https://discordapp.com`
 1. Copy your `token` (don't share this)
@@ -29,4 +36,4 @@ Translates your text into a discord emoji sentence because this repository is st
 1. Run `python ./emoji_replacer.py`  
 	*If python's path is not set to v3.5+, replace 'python' with 'python3.x' where x is the version number*
 1. Wait for the ready message
-1. Prefix your messages with `.em`
+1. Follow on-screen instructions to use the bot.
