@@ -4,161 +4,116 @@ from random import randint
 
 emoji_command_prefix = ".em "
 clap_command_prefix  = ".clap "
+react_command_prefix = ".react "
 max_message_length = 2000
-
-
-ok    = "•"
-ng    = "‣"
-new   = "◦"
-ab    = "※"
-sos   = "Ŷ"
-cl    = "ƈ"
-abc   = "Ɔ"
-cool  = "Ť"
-tm    = "ƌ"
-up    = "Ʊ"
-new   = "ƞ"
-free  = "ƒ"
-end   = "Ɛ"
-back  = "Ɓ"
-on    = "ơ"
-top   = "Ƭ"
-soon  = "ƨ"
-love  = "ǽ"
-think = "ʨ"
-rod   = "ʤ"
-buns  = "Ƞ"
-face  = "ʛ"
-weary = "Ѻ"
-gun   = "Ջ"
-
 
 # replacements ordered by length
 # so longer phrases get replaced. Please format new entries appropriately.
 special_case_replace_dictionary = {
-    "booty": buns,
-    "daddy": weary + "daddy" + weary,
-    "hmmmm": think,
-    "penis": rod,
-    "think": think,
+    "booty": "🍑",
+    "daddy": "😩" + "daddy" + "😩",
+    "hmmmm": "🤔",
+    "penis": "🍆",
+    "think": "🤔",
 
-    "back": back,
-    "butt": buns,
-    "cock": rod,
-    "cool": cool,
-    "dick": rod,
-    "free": free,
-    "hmmm": think,
-    "love": love,
-    "soon": soon,
+    "back": "🔙",
+    "butt": "🍑",
+    "cock": "🍆",
+    "cool": "🆒",
+    "dick": "🍆",
+    "free": "🆓",
+    "hmmm": "🤔",
+    "love": "😍",
+    "soon": "🔜",
 
-    "abc": abc,
-    "ass": buns,
-    "end": end,
-    "hmm": think,
-    "kms": face + gun,
-    "luv": love,
-    "new": new,
-    "sos": sos,
-    "top": top,
+    "abc": "🔤",
+    "ass": "🍑",
+    "end": "🔚",
+    "hmm": "🤔",
+    "kms": "😀" + "🔫",
+    "luv": "😍",
+    "new": "🆕",
+    "sos": "🆘",
+    "top": "🔝",
 
-    "<3": love,
-    "ab": ab,
-    "cl": cl,
-    "ng": ng,
-    "ok": ok,
-    "on": on,
-    "tm": tm,
-    "up": up
+    "<3": "😍",
+    "ab": "🆎",
+    "cl": "🆑",
+    "ng": "🆖",
+    "ok": "🆗",
+    "on": "🔛",
+    "tm": "™",
+    "up": "🆙"
 }
 
 
 # please keep any new entries matched up with length of key
 # done purely for formatting reasons.
 char_replacement_dictionary = {
-    think: [":thinking:"],
-    weary: [":weary:"],
-
-    back: [":back:"],
-    buns: [":peach:"],
-    cool: [":cool:"],
-    face: [":grimacing:", ":sunglasses:", ":weary:"],
-    free: [":free:"],
-    love: [":heart:", ":hearts:", ":sparkling_heart:", ":heartpulse:"],
-    soon: [":soon:"],
-
-    abc: [":abc:"],
-    end: [":end:"],
-    gun: [":gun:"],
-    new: [":new:"],
-    rod: [":eggplant:"],
-    sos: [":sos:"],
-    top: [":top:"],
-
-    ab: [":ab:"],
-    cl: [":cl:"],
-    ng: [":ng:"],
-    on: [":on:"],
-    ok: [":ok:"],
-    tm: [":tm:"],
-    up: [":up:"],
-
-    '1': [":one:"],
-    '2': [":two:"],
-    '3': [":three:"],
-    '4': [":four:"],
-    '5': [":five:"],
-    '6': [":six:"],
-    '7': [":seven:"],
-    '8': [":eight:"],
-    '9': [":nine:"],
-    '0': [":zero:"],
-    'a': [":regional_indicator_a:", ":a:"],
-    'b': [":regional_indicator_b:", ":b:"],
-    'c': [":regional_indicator_c:", ":star_and_crescent:"],
-    'd': [":regional_indicator_d:"],
-    'e': [":regional_indicator_e:"],
-    'f': [":regional_indicator_f:"],
-    'g': [":regional_indicator_g:"],
-    'h': [":regional_indicator_h:"],
-    'i': [":regional_indicator_i:", ":information_source:"],
-    'j': [":regional_indicator_j:"],
-    'k': [":regional_indicator_k:"],
-    'l': [":regional_indicator_l:"],
-    'm': [":regional_indicator_m:", ":m:"],
-    'n': [":regional_indicator_n:"],
-    'o': [":regional_indicator_o:", ":o:", " :o2:"],
-    'p': [":regional_indicator_p:"],
-    'q': [":regional_indicator_q:"],
-    'r': [":regional_indicator_r:"],
-    's': [":regional_indicator_s:"],
-    't': [":regional_indicator_t:"],
-    'u': [":regional_indicator_u:"],
-    'v': [":regional_indicator_v:"],
-    'w': [":regional_indicator_w:"],
-    'x': [":regional_indicator_x:", ":x:", ":heavy_multiplication_x:",
-            ":negative_squared_cross_mark:"],
-    'y': [":regional_indicator_y:"],
-    'z': [":regional_indicator_z:"],
-    '!': [":exclamation:"],
-    '?': [":question:"],
-    '-': [":heavy_minus_sign:"],
-    '+': [":thumbsup:"]
+    "😀": ["😬", "😎", "😩"],
+    "😍": ["❤", "💕", "💖", "💗"],
+    '#': ["#⃣"],
+    '1': ["1⃣"],
+    '2': ["2⃣"],
+    '3': ["3⃣"],
+    '4': ["4⃣"],
+    '5': ["5⃣"],
+    '6': ["6⃣"],
+    '7': ["7⃣"],
+    '8': ["8⃣"],
+    '9': ["9⃣"],
+    '0': ["0⃣"],
+    'a': ["🇦", "🅰"],
+    'b': ["🇧", "🅱"],
+    'c': ["🇨", "☪"],
+    'd': ["🇩"],
+    'e': ["🇪"],
+    'f': ["🇫"],
+    'g': ["🇬"],
+    'h': ["🇭"],
+    'i': ["🇮", "ℹ"],
+    'j': ["🇯"],
+    'k': ["🇰"],
+    'l': ["🇱"],
+    'm': ["🇲", "Ⓜ"],
+    'n': ["🇳"],
+    'o': ["🇴", "🅾", "⭕"],
+    'p': ["🇵"],
+    'q': ["🇶"],
+    'r': ["🇷"],
+    's': ["🇸"],
+    't': ["🇹"],
+    'u': ["🇺"],
+    'v': ["🇻"],
+    'w': ["🇼"],
+    'x': ["🇽", "✖", "❌", "❎"],
+    'y': ["🇾"],
+    'z': ["🇿"],
+    '!': ["❗"],
+    '?': ["❓"],
+    '-': ["➖"],
+    '+': ["👍"]
 }
 
 
 # replaces replaceable characters with emojis
-def string_to_emoji_message_list(input_string):
+def string_to_emoji_message_list(input_string, reacting=False):
     '''
     :param input_string: The string that we will be parsing for emoji replacements
-    :return: A list of emoji strings whose length does not exceed max message limit
+    :param random: whether or not this should be random
+    :return: A list of emoji strings whose length does not exceed max message limit if not reacting
+            if reacting, a single list containing one string
     '''
 
     input_string = input_string.lower()
     return_messages = list()
+    letter_occurrences_dict = {}
 
     for special_case in special_case_replace_dictionary:
-        input_string = input_string.replace(special_case, special_case_replace_dictionary[special_case])
+        if reacting:
+            input_string = input_string.replace(special_case, special_case_replace_dictionary[special_case], 1)
+        else:
+            input_string = input_string.replace(special_case, special_case_replace_dictionary[special_case])
 
     # the current word we're parsing (not interrupted by "\n" or " ")
     current_word = ""
@@ -183,15 +138,24 @@ def string_to_emoji_message_list(input_string):
 
         elif c in char_replacement_dictionary:
             choices = char_replacement_dictionary[c]
-            # add an extra space as Discord collapses side-by-side chars like "de" to a flag.
-            append_string = choices[randint(0, len(choices) - 1)] + " "
+            if not reacting:
+                # add an extra space as Discord collapses side-by-side chars like "de" to a flag.
+                append_string = choices[randint(0, len(choices) - 1)] + " "
+            else:
+                if c not in letter_occurrences_dict:
+                    letter_occurrences_dict[c] = 0
+                if letter_occurrences_dict[c] == len(choices):
+                    raise Exception("Could not react; too many required characters but not enough emojis!")
+
+                append_string = choices[letter_occurrences_dict[c]]
+                letter_occurrences_dict[c] += 1
 
         else:
             append_string = c
 
         # checks if the word itself > the limit. If it is, chop the word up.
         # if it's not, we can just add it to the current word
-        if len(append_string) + len(current_word) > max_message_length:
+        if len(append_string) + len(current_word) > max_message_length and not reacting:
             return_messages.append(current_word)
             current_word = ""
 
@@ -200,7 +164,7 @@ def string_to_emoji_message_list(input_string):
 
     # Make sure to attach the last message since it didn't go over message limit
     # chop up from the word as necessary.
-    if len(current_word) + len(current_string) <= max_message_length:
+    if len(current_word) + len(current_string) <= max_message_length and not reacting:
         return_messages.append(current_string + current_word)
     else:
         return_messages.append(current_string)
@@ -234,6 +198,35 @@ def message_to_clappified_message_list(input_string):
     return return_messages
 
 
+# returns the message from client if possible
+def get_message_with_id(client, msg_id):
+    '''
+    :param client: The discord client to parse from
+    :param id: the id of the message to parse
+    :return: the message we want (must be from the past 5k messages and be sent after client start)
+    '''
+    for message in client.messages:
+        if message.id == msg_id:
+            return message
+    else:
+        raise Exception("Message with id %s could not be found or was from the past." % msg_id)
+
+
+# parses the id and msg from some string
+def get_id_and_content_from_str(input_string):
+    '''
+    :param input_string: the string to parse id and message from
+    :return: the id and message content if possible. None if improperly formatted
+    '''
+    space_separated = input_string.split()
+
+    if len(space_separated) > 1:
+        msg_id = space_separated[0]
+        return msg_id, input_string[len(msg_id):]
+    else:
+        raise Exception("react command improperly formatted; could not find id or message.")
+
+
 def main():
     config = configparser.ConfigParser()
     config.read("config.ini")
@@ -241,26 +234,50 @@ def main():
 
     @client.event
     async def on_ready():
-        print("Ready to meme!\nEmojify your sentences by starting them with '%s' or clappify it using '%s'." %
-              (emoji_command_prefix, clap_command_prefix))
+        print("Ready to meme!\n" +
+              ("'%s [message]' - Emojify a message\n" % emoji_command_prefix) +
+              ("'%s [message]' - Clappify a message\n" % clap_command_prefix) +
+              ("'%s [message_id] [message]' - Reacts to message with id '[message_id]' with [message]" %
+               react_command_prefix))
 
     @client.event
     async def on_message(message):
         user_is_owner = message.author.id == config["user"]["id"]
 
-        if user_is_owner and message.content.startswith(emoji_command_prefix):
-            await client.delete_message(message)
+        if user_is_owner:
+            if message.content.startswith(emoji_command_prefix):
+                await client.delete_message(message)
 
-            emoji_messages = string_to_emoji_message_list(message.content[len(emoji_command_prefix):])
-            for emoji_message in emoji_messages:
-                await client.send_message(message.channel, emoji_message)
-        elif user_is_owner and message.content.startswith(clap_command_prefix):
-            await client.delete_message(message)
+                emoji_messages = string_to_emoji_message_list(message.content[len(emoji_command_prefix):])
+                for emoji_message in emoji_messages:
+                    await client.send_message(message.channel, emoji_message)
+            elif message.content.startswith(clap_command_prefix):
+                await client.delete_message(message)
 
-            clappified_messages = message_to_clappified_message_list(message.content[len(clap_command_prefix):])
+                clappified_messages = message_to_clappified_message_list(message.content[len(clap_command_prefix):])
 
-            for clappified_message in clappified_messages:
-                await client.send_message(message.channel, clappified_message)
+                for clappified_message in clappified_messages:
+                    await client.send_message(message.channel, clappified_message)
+
+            elif message.content.startswith(react_command_prefix):
+                await client.delete_message(message)
+
+                msg_wo_command = message.content[len(react_command_prefix):]
+
+                react_msg_id, msg_content = get_id_and_content_from_str(msg_wo_command)
+                msg_content = msg_content.replace(" ", "").replace("\n", "")
+
+                msg_for_reacting = get_message_with_id(client, react_msg_id)
+
+                reaction_messages = string_to_emoji_message_list(msg_content, reacting=True)
+                for reaction_message in reaction_messages:
+                    for reaction in reaction_message:
+                        try:
+                            await client.add_reaction(msg_for_reacting, reaction)
+                        except discord.HTTPException:
+                            print("'%s' was attempted to be a reaction, but does not exist as emoji" % reaction)
+
+
 
     print("Logging in, please wait...")
     client.run(config["user"]["token"], bot=False)
