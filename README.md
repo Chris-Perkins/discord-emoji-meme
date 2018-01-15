@@ -15,7 +15,7 @@ A self-bot to:
 
 ### Install
 1. Clone this repo
-1. Run `pip install discord.py`  
+1. Run `pip install -U discord.py`  
 	*If python's path is not set to v3.5+, replace 'pip' with 'pip3.x' where x is the version number*
     
 ### Get your Discord user token
@@ -25,7 +25,7 @@ A self-bot to:
 1. Expand `Local Storage` and click on `https://discordapp.com`
 1. Copy your `token` (don't share this)
 1. Paste into config file
-### Get your Discord user id
+### Get your Discord user ID
 1. Go to Discord `User Settings` > `Appearance`
 1. Enable `Developer Mode`
 1. Right-click your Discord user
