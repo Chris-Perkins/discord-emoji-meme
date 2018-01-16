@@ -47,8 +47,7 @@ special_case_replace_dictionary = {
 }
 
 
-# please keep any new entries matched up with length of key
-# done purely for formatting reasons.
+# Char -> Emoji replacements should be done here
 char_replacement_dictionary = {
     "😀": ["😬", "😎", "😩"],
     "😍": ["❤", "💕", "💖", "💗"],
@@ -102,7 +101,7 @@ def string_to_emoji_message_list(input_string, reacting=False):
     :param input_string: The string that we will be parsing for emoji replacements
     :param random: whether or not this should be random
     :return: A list of emoji strings whose length does not exceed max message limit if not reacting
-            if reacting, a single list containing one string
+            if reacting, a list of len = 1 containing one string
     '''
 
     input_string = input_string.lower()
@@ -164,7 +163,7 @@ def string_to_emoji_message_list(input_string, reacting=False):
 
     # Make sure to attach the last message since it didn't go over message limit
     # chop up from the word as necessary.
-    if len(current_word) + len(current_string) <= max_message_length and not reacting:
+    if len(current_word) + len(current_string) <= max_message_length or reacting:
         return_messages.append(current_string + current_word)
     else:
         return_messages.append(current_string)
