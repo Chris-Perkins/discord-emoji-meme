@@ -150,7 +150,7 @@ def string_to_emoji_message_list(input_string, reacting=False):
                 letter_occurrences_dict[c] += 1
 
         else:
-            append_string = c
+            append_string = c + " " if c in special_case_replace_dictionary.values() else c
 
         # checks if the word itself > the limit. If it is, chop the word up.
         # if it's not, we can just add it to the current word
@@ -175,7 +175,7 @@ def string_to_emoji_message_list(input_string, reacting=False):
 # replaces spaces with :clap: and doesn't go over the message char limit
 def message_to_clappified_message_list(input_string):
     '''
-    :param input_string: The string that will for
+    :param input_string: The string to clappify
     :return: a list of messages with all spaces in input_string replaced with :clap:
     '''
     
